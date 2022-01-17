@@ -4,7 +4,7 @@
 ## Introduction
 
 This repo holds the manifest files for the K8s (1.22) cluster. 
-There are 6 manifest files such that when you apply it on the K8s cluster it will produce below diagram. Note: there is a high-quality version of this figure (K8s Daigram.pdf)
+There are 6 manifest files such that when you apply it on the K8s cluster it will produce below diagram. Note: there is a high-quality version of this figure (K8s-Diagram.pdf)
 
 ![](https://i.imgur.com/kwbVMol.jpg)
 
