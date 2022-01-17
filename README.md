@@ -66,6 +66,7 @@ This file has the *ingress* service code.
 - It uses the Nginx ingress controller.
 - Hosting www.hamid.com (you can edit /etc/hosts file to trick it.)
 - It uses regex to identify the request and route to a specific service (i.e client pod or server pod).
+- Nginx ingress controller installed by the following link (https://kubernetes.github.io/ingress-nginx/deploy/#quick-start).
 
 
 
