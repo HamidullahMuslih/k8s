@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo   # this replica effect on any pod labeled as mongo
+  template:        # pod spec started
+    metadata:
+      name: mongo-pod
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+      volumes:      # this is making available the mongo-pvc volume
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-srv
+spec:
+  selector:
+    app: mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

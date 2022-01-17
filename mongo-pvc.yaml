@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim     # this will create storage outsie of the pod (best practice), other approaches are volume inside pod.
+metadata:
+  name: mongo-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce   # used by single node (pod)
+    # - ReadWriteMany  # used by many (node) pods in case of many replica 
+  resources:
+    requests:
+      storage: 2Gi 

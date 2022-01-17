@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server      # this replica effect on any pod labeled as mongo
+  template:             # pod spec started
+    metadata:
+      name: server-pod
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: laithharb/server:v2
+          resources:
+            requests:     # request is not exact estimation, it is what we think that the pods might use. if we don't specify the limit this kind QOS called (burstable) 
+              memory: 200Mi
+              cpu: 100m
+            limits:                 # this is exact estimation, if the pods exceed it, the k8s will restart the this pod. this kind QOS class called (Guaranteed).
+              memory: 200Mi         # if we don't define any request and limit, this QOS class will be (BestEffort)
+              cpu: 100m
+          env:
+            - name: MONGO_URL 
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-credentials
+                  key: mongo-url
+            # name: MONGO_URL
+            # value: mongodb://mongo-srv/habits
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: server
+  ports:
+  - port: 3000
+    targetPort: 3000
