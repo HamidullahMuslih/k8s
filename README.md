@@ -1,4 +1,4 @@
-# K8s Practise repos
+# K8s
 
 ---
 ## Introduction
